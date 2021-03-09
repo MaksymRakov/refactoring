@@ -1,6 +1,10 @@
 RSpec.describe Account do
   OVERRIDABLE_FILENAME = 'spec/fixtures/account.yml'.freeze
 
+  before do
+    stub_const("Uploader::FILE_PATH", OVERRIDABLE_FILENAME)
+  end
+
   COMMON_PHRASES = {
     create_first_account: "There is no active accounts, do you want to be the first?[y/n]\n",
     destroy_account: "Are you sure you want to destroy account?[y/n]\n",
@@ -80,18 +84,9 @@ RSpec.describe Account do
   ].freeze
 
   CARDS = {
-    usual: {
-      type: 'usual',
-      balance: 50.00
-    },
-    capitalist: {
-      type: 'capitalist',
-      balance: 100.00
-    },
-    virtual: {
-      type: 'virtual',
-      balance: 150.00
-    }
+    usual: UsualCard.new,
+    capitalist: CapitalistCard.new,
+    virtual: VirtualCard.new
   }.freeze
 
   let(:current_subject) { described_class.new }
@@ -479,15 +474,15 @@ RSpec.describe Account do
 
       CARDS.each do |card_type, card_info|
         it "create card with #{card_type} type" do
-          expect(current_subject).to receive_message_chain(:gets, :chomp) { card_info[:type] }
+          expect(current_subject).to receive_message_chain(:gets, :chomp) { card_type.to_s }
 
           current_subject.create_card
 
           expect(File.exist?(OVERRIDABLE_FILENAME)).to be true
           file_accounts = YAML.load_file(OVERRIDABLE_FILENAME)
-          expect(file_accounts.first.card.first[:type]).to eq card_info[:type]
-          expect(file_accounts.first.card.first[:balance]).to eq card_info[:balance]
-          expect(file_accounts.first.card.first[:number].length).to be 16
+          # expect(file_accounts.first.card.first.type).to eq card_info[:type]
+          expect(file_accounts.first.card.first.balance).to eq card_info.balance
+          expect(file_accounts.first.card.first.number.length).to be 16
         end
       end
     end
@@ -514,8 +509,8 @@ RSpec.describe Account do
     end
 
     context 'with cards' do
-      let(:card_one) { { number: 1, type: 'test' } }
-      let(:card_two) { { number: 2, type: 'test2' } }
+      let(:card_one) { CARDS[:usual] }
+      let(:card_two) { CARDS[:virtual] }
       let(:fake_cards) { [card_one, card_two] }
 
       context 'with correct outout' do
@@ -525,7 +520,7 @@ RSpec.describe Account do
           allow(current_subject).to receive_message_chain(:gets, :chomp) { 'exit' }
           expect { current_subject.destroy_card }.to output(/#{COMMON_PHRASES[:if_you_want_to_delete]}/).to_stdout
           fake_cards.each_with_index do |card, i|
-            message = /- #{card[:number]}, #{card[:type]}, press #{i + 1}/
+            message = /- #{card.number}, press #{i + 1}/
             expect { current_subject.destroy_card }.to output(message).to_stdout
           end
           current_subject.destroy_card

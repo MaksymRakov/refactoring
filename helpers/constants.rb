@@ -1,0 +1,2 @@
+AGREE = 'y'
+EXIT = 'exit'
