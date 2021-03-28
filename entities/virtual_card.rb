@@ -4,6 +4,7 @@ class VirtualCard < BaseCard
   attr_accessor :balance
 
   def initialize
+    super
     @balance = 150.0
   end
 
@@ -22,10 +23,6 @@ class VirtualCard < BaseCard
   def sender_tax(amount)
     tax(amount, sender_percent, sender_fixed)
   end
-
-  # def balance
-  #   150.0
-  # end
 
   private
 

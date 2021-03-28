@@ -7,37 +7,47 @@ module InputHelper
   end
 
   def ask_destroy_account
-    puts 'Are you sure you want to destroy account?[y/n]'
+    puts I18n.t(:ask_destroy_account)
     gets.chomp
   end
-  
+
   def ask_age
-    puts 'Enter your age'
+    puts I18n.t(:ask_age)
     gets.chomp
   end
 
   def ask_name
-    puts 'Enter your name'
+    puts I18n.t(:ask_name)
     gets.chomp
   end
 
   def ask_login
-    puts 'Enter your login'
+    puts I18n.t(:ask_login)
     gets.chomp
   end
 
   def ask_password
-    puts 'Enter your password'
+    puts I18n.t(:ask_password)
     gets.chomp
   end
 
   def ask_amount_wiyhdraw
-    puts 'Input the amount of money you want to withdraw'
+    withdraw_amount_message
+    gets.chomp
+  end
+
+  def ask_amount_put
+    put_amount_message
+    gets.chomp
+  end
+
+  def ask_amount_send
+    send_amount_message
     gets.chomp
   end
 
   def ask_recipient_card
-    puts 'Enter the recipient card:'
+    puts I18n.t(:ask_recipient_card)
     gets.chomp
   end
 
@@ -62,7 +72,12 @@ module InputHelper
   end
 
   def ask_confirm_card_delete(card)
-    puts "Are you sure you want to delete #{card.number}?[y/n]"
+    puts I18n.t(:ask_confirm_card_delete, card_number: card.number)
+    gets.chomp
+  end
+
+  def ask_withdraw_amount
+    withdraw_amount_message
     gets.chomp
   end
 end

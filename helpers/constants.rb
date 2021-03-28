@@ -1,2 +1,0 @@
-AGREE = 'y'
-EXIT = 'exit'

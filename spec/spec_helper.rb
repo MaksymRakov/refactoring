@@ -2,9 +2,11 @@ require 'simplecov'
 require 'undercover'
 
 SimpleCov.start do
-  add_filter(%r{\/spec\/})
+  add_filter(%r{/spec/})
 end
 
+require_relative '../config/autoload'
+# require_relative './constants_for_spec'
 require_relative '../account'
 
 RSpec.configure do |config|

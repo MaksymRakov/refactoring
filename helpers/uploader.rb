@@ -1,8 +1,8 @@
 module Uploader
-  FILE_PATH = 'accounts.yml'
+  FILE_PATH = 'accounts.yml'.freeze
 
   def load_data
-    return [] unless File.exists?(FILE_PATH)
+    return [] unless File.exist?(FILE_PATH)
 
     YAML.load_file(FILE_PATH)
   end

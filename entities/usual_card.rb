@@ -4,6 +4,7 @@ class UsualCard < BaseCard
   attr_accessor :balance
 
   def initialize
+    super
     @balance = 50.0
   end
 
@@ -22,10 +23,6 @@ class UsualCard < BaseCard
   def sender_tax(amount)
     tax(amount, sender_percent, sender_fixed)
   end
-
-  # def balance
-  #   50.0
-  # end
 
   private
 

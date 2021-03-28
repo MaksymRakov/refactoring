@@ -2,6 +2,7 @@ class BaseCard
   def balance
     0
   end
+
   private
 
   def generate_card_number
@@ -13,26 +14,26 @@ class BaseCard
   end
 
   def withdraw_percent
-    0
+    raise NotImplementedError
   end
 
   def put_percent
-    0
+    raise NotImplementedError
   end
 
   def sender_percent
-    0
+    raise NotImplementedError
   end
 
   def withdraw_fixed
-    0
+    raise NotImplementedError
   end
 
   def put_fixed
-    0
+    raise NotImplementedError
   end
 
   def sender_fixed
-    0
+    raise NotImplementedError
   end
 end
