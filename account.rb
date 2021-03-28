@@ -97,6 +97,6 @@ class Account
     return unless accounts.map { |a| { login: a.login, password: a.password } }
                           .include?({ login: login, password: password })
 
-    @current_account = accounts.select { |a| login == a.login }.first
+    @current_account = accounts.detect { |a| login == a.login }
   end
 end
