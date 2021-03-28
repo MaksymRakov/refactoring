@@ -1,21 +1,21 @@
 COMMON_PHRASES = {
-  create_first_account: "There is no active accounts, do you want to be the first?[y/n]\n",
-  destroy_account: "Are you sure you want to destroy account?[y/n]\n",
-  if_you_want_to_delete: 'If you want to delete:',
-  choose_card: 'Choose the card for putting:',
-  choose_card_withdrawing: 'Choose the card for withdrawing:',
-  input_amount: 'Input the amount of money you want to put on your card',
-  withdraw_amount: 'Input the amount of money you want to withdraw'
+  create_first_account: I18n.t(:first_account_message),
+  destroy_account: I18n.t(:ask_destroy_account),
+  if_you_want_to_delete: I18n.t(:proposal_to_delete),
+  choose_card: I18n.t(:invitation_for, action_name: 'putting'),
+  choose_card_withdrawing: I18n.t(:invitation_for, action_name: 'withdrawing'),
+  input_amount: I18n.t(:put_amount_message),
+  withdraw_amount: I18n.t(:withdraw_amount_message)
 }.freeze
 
 ERROR_PHRASES = {
-  user_not_exists: 'There is no account with given credentials',
-  wrong_command: 'Wrong command. Try again!',
-  no_active_cards: "There is no active cards!\n",
-  wrong_card_type: "Wrong card type. Try again!\n",
-  wrong_number: "You entered wrong number!\n",
-  correct_amount: 'You must input correct amount of money',
-  tax_higher: 'Your tax is higher than input amount'
+  user_not_exists: I18n.t(:no_account_message),
+  wrong_command: I18n.t(:wrong_command_message),
+  no_active_cards: I18n.t(:no_cards_message),
+  wrong_card_type: I18n.t(:wrong_card_type),
+  wrong_number: I18n.t(:wrong_number_message),
+  correct_amount: I18n.t(:incorrect_amount_message),
+  tax_higher: I18n.t(:big_tax_message)
 }.freeze
 
 CARDS = {
@@ -27,61 +27,42 @@ CARDS = {
 OVERRIDABLE_FILENAME = 'spec/fixtures/account.yml'.freeze
 
 CREATE_CARD_PHRASES = [
-  "You could create one of 3 card types\n" \
-  "- Usual card. 2% tax on card INCOME. 20$ tax on SENDING money from this card. 5% tax on WITHDRAWING money.\n" \
-  "For creation this card - press `usual`\n" \
-  "- Capitalist card. 10$ tax on card INCOME. 10% tax on SENDING money from this card. \n" \
-  "4$ tax on WITHDRAWING money. For creation this card - press `capitalist`\n" \
-  "- Virtual card. 1$ tax on card INCOME. 1$ tax on SENDING money from this card. \n" \
-  "12% tax on WITHDRAWING money. For creation this card - press `virtual`\n" \
-  "- For exit - press `exit`\n"
+  I18n.t(:create_card_message)
 ].freeze
 
 CARD_TYPES = %w[usual capitalist virtual].freeze
 
 MAIN_OPERATIONS_TEXTS = [
-  "Welcome, John\n" \
-  "If you want to:\n" \
-  "- show all cards - press SC\n" \
-  "- create card - press CC\n" \
-  "- destroy card - press DC\n" \
-  "- put money on card - press PM\n" \
-  "- withdraw money on card - press WM\n" \
-  "- send money to another card  - press SM\n" \
-  "- destroy account - press `DA`\n" \
-  "- exit from account - press `exit`\n"
+  I18n.t(:greeting_main_menu_message, name: 'John')
 ].freeze
 
 HELLO_PHRASES = [
-  "Hello, we are RubyG bank!\n"\
-  "- If you want to create account - press `create`\n"\
-  "- If you want to load account - press `load`\n"\
-  "- If you want to exit - press `exit`\n"
+  I18n.t(:greeting_message)
 ].freeze
 
 ACCOUNT_VALIDATION_PHRASES = {
   name: {
-    first_letter: 'Your name must not be empty and starts with first upcase letter'
+    first_letter: I18n.t(:ampty_name)
   },
   login: {
-    present: 'Login must present',
-    longer: 'Login must be longer then 4 symbols',
-    shorter: 'Login must be shorter then 20 symbols',
-    exists: 'Such account is already exists'
+    present: I18n.t(:login_present),
+    longer: I18n.t(:min_login_lemngth),
+    shorter: I18n.t(:max_login_lemngth),
+    exists: I18n.t(:account_exist)
   },
   password: {
-    present: 'Password must present',
-    longer: 'Password must be longer then 6 symbols',
-    shorter: 'Password must be shorter then 30 symbols'
+    present: I18n.t(:password_present),
+    longer: I18n.t(:min_password_lemngth),
+    shorter: I18n.t(:max_password_lemngth)
   },
   age: {
-    length: 'Your Age must be greeter then 23 and lower then 90'
+    length: I18n.t(:age_limitation_message)
   }
 }.freeze
 
 ASK_PHRASES = {
-  name: 'Enter your name',
-  login: 'Enter your login',
-  password: 'Enter your password',
-  age: 'Enter your age'
+  name: I18n.t(:ask_name),
+  login: I18n.t(:ask_login),
+  password: I18n.t(:ask_password),
+  age: I18n.t(:ask_age)
 }.freeze

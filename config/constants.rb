@@ -1,18 +1,3 @@
-# AGREE = 'y'.freeze
-# AMPTY_NAME = 'Your name must not be empty and starts with first upcase letter'.freeze
-# ACTION_PUT = 'putting'.freeze
-# ACTION_SEND = 'sending'.freeze
-# ACTION_WITHDRAW = 'withdrawing'.freeze
-
-# CREATE_CARD = 'CC'.freeze
-# DELETE_ACCOUNT = 'DA'.freeze
-# DESTROY_CARD = 'DC'.freeze
-# PUT_MONEY = 'PM'.freeze
-# SEND_MONEY = 'SM'.freeze
-# SHOW_CARDS = 'SC'.freeze
-# WITHDRAW_MONEY = 'WM'.freeze
-# EXIT = 'exit'.freeze
-
 COMMANDS = {
   "#{I18n.t(:show_cards)}": :show_cards,
   "#{I18n.t(:create_card)}": :create_card,
@@ -23,3 +8,8 @@ COMMANDS = {
   "#{I18n.t(:delete_account)}": :delete_account,
   "#{I18n.t(:exit)}": :programm_exit
 }.freeze
+
+CARD_TYPES = %w[usual capitalist virtual].freeze
+DEFAULT_BALANCE_CAPITALIST = 100.0
+DEFAULT_BALANCE_USUAL = 50.0
+DEFAULT_BALANCE_VIRTUAL = 150.0

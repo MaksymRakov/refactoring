@@ -5,7 +5,6 @@ SimpleCov.start do
 end
 
 require_relative '../config/autoload'
-# require_relative './constants_for_spec'
 require_relative '../account'
 
 RSpec.configure do |config|

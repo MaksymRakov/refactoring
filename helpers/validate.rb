@@ -5,17 +5,17 @@ module Validate
   end
 
   def validate_login(errors, login, accounts)
-    errors.push('Login must present') if login == ''
-    errors.push('Login must be longer then 4 symbols') if login.length < 4
-    errors.push('Login must be shorter then 20 symbols') if login.length > 20
-    errors.push('Such account is already exists') if accounts.map(&:login).include? login
+    errors.push(I18n.t(:login_present)) if login == ''
+    errors.push(I18n.t(:min_login_lemngth)) if login.length < 4
+    errors.push(I18n.t(:max_login_lemngth)) if login.length > 20
+    errors.push(I18n.t(:account_exist)) if accounts.map(&:login).include? login
     errors
   end
 
   def validate_password(errors, password)
-    errors.push('Password must present') if password == ''
-    errors.push('Password must be longer then 6 symbols') if password.length < 6
-    errors.push('Password must be shorter then 30 symbols') if password.length > 30
+    errors.push(I18n.t(:password_present)) if password == ''
+    errors.push(I18n.t(:min_password_lemngth)) if password.length < 6
+    errors.push(I18n.t(:max_password_lemngth)) if password.length > 30
     errors
   end
 end

@@ -4,7 +4,6 @@ module OutputHelper
   end
 
   def greeting_main_menu_message(name)
-    # puts I18n.t(:welcome, name: name)
     puts I18n.t(:greeting_main_menu_message, name: name)
   end
 

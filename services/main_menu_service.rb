@@ -46,8 +46,8 @@ class MainMenuService
     end
 
     def destroy_account(accounts, current_account)
-      a = ask_destroy_account
-      return unless a == I18n.t(:agree)
+      confirm_destroy_account = ask_destroy_account
+      return unless confirm_destroy_account == I18n.t(:agree)
 
       new_accounts = accounts.reject { |account| account.login == current_account.login }
       save_data(new_accounts)

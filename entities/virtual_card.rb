@@ -1,11 +1,9 @@
 require_relative 'base_card'
 
 class VirtualCard < BaseCard
-  attr_accessor :balance
-
   def initialize
     super
-    @balance = 150.0
+    @balance = DEFAULT_BALANCE_VIRTUAL
   end
 
   def number

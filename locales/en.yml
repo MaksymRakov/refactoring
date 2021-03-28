@@ -12,7 +12,7 @@ en:
   show_cards: 'SC'
   withdraw_money: 'WM'
   exit: 'exit'
-  ask_destroy_account: 'Are you sure you want to destroy account?[y/n]'
+  ask_destroy_account: "Are you sure you want to destroy account?[y/n]\n"
   ask_age: 'Enter your age'
   ask_name: 'Enter your name'
   ask_login: 'Enter your login'
@@ -72,6 +72,13 @@ en:
     "Money %{amount} was put on %{number}. 
     Balance: %{balance}. Tax: %{tax}
   age_limitation_message: 'Your Age must be greeter then 23 and lower then 90'
-  first_account_message: 'There is no active accounts, do you want to be the first?[y/n]'
+  first_account_message: "There is no active accounts, do you want to be the first?[y/n]\n"
   wrong_command_message: "Wrong command. Try again!\n"
   wrong_card_type: "Wrong card type. Try again!\n"
+  password_present: 'Password must present'
+  min_password_lemngth: 'Password must be longer then 6 symbols'
+  max_password_lemngth: 'Password must be shorter then 30 symbols'
+  login_present: 'Login must present'
+  min_login_lemngth: 'Login must be longer then 4 symbols'
+  max_login_lemngth: 'Login must be shorter then 20 symbols'
+  account_exist: 'Such account is already exists'

@@ -13,7 +13,7 @@ class SendService
 
     loop do
       @amount = ask_amount_send.to_i
-      next if check_amount == false
+      next unless check_amount
 
       set_balances
       next if check_balances == false
@@ -82,7 +82,7 @@ class SendService
     return incorrect_number_message unless number.length == 16
 
     cards = @accounts.map(&:card).flatten
-    return cards.ddetect { |card| card.number == number } if cards.select { |card| card.number == number }.any?
+    return cards.detect { |card| card.number == number } if cards.select { |card| card.number == number }.any?
 
     no_card_message(number)
   end

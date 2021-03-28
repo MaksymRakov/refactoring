@@ -1,7 +1,5 @@
 class BaseCard
-  def balance
-    0
-  end
+  attr_accessor :balance
 
   private
 

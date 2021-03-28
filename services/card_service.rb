@@ -12,7 +12,7 @@ class CardService
     def create_new_card
       loop do
         card_type = ask_card_type
-        return Object.const_get("#{card_type.capitalize}Card").new if %w[usual capitalist virtual].include?(card_type)
+        return Object.const_get("#{card_type.capitalize}Card").new if CARD_TYPES.include?(card_type)
 
         puts I18n.t(:wrong_card_type)
       end
@@ -43,7 +43,7 @@ class CardService
     def destroy_card_get(current_account)
       no_cards_message && return unless current_account.card.any?
 
-      return nil if (card_number = ask_delete_card(current_account.card)) == I18n.t(:exit)
+      return if (card_number = ask_delete_card(current_account.card)) == I18n.t(:exit)
 
       card_number
     end

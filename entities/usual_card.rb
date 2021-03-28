@@ -1,11 +1,9 @@
 require_relative 'base_card'
 
 class UsualCard < BaseCard
-  attr_accessor :balance
-
   def initialize
     super
-    @balance = 50.0
+    @balance = DEFAULT_BALANCE_USUAL
   end
 
   def number
