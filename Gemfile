@@ -17,5 +17,4 @@ group :test do
   gem 'rspec', '~> 3.8'
   gem 'simplecov', '~> 0.21'
   gem 'simplecov-lcov', '~> 0.8'
-  gem 'undercover', '~> 0.4'
 end
