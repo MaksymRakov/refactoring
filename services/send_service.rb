@@ -9,14 +9,14 @@ class SendService
   end
 
   def send_money
-    return if cards_get == false
+    return unless cards_get
 
     loop do
       @amount = ask_amount_send.to_i
       next unless check_amount
 
       set_balances
-      next if check_balances == false
+      next unless check_balances
 
       create_new_data
       success_send_message(@amount, @recipient_card, @sender_card)
@@ -34,10 +34,12 @@ class SendService
 
   def cards_get
     @sender_card = sender_card_get
-    return false unless @sender_card
+    return unless @sender_card
 
     @recipient_card = recipient_card_get
-    false unless @recipient_card
+    return unless @recipient_card
+
+    true
   end
 
   def set_balances
@@ -48,11 +50,10 @@ class SendService
   def check_balances
     if @sender_balance.negative?
       no_money_message
-      false
     elsif @recipient_card.put_tax(@amount) >= @amount
       no_money_sender_card_message
-      false
     end
+    true
   end
 
   def check_amount

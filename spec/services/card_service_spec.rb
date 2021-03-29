@@ -147,7 +147,7 @@ RSpec.describe CardService do
     let(:account_without_cards) { instance_double('Account', card: []) }
 
     it 'display cards if there are any' do
-      fake_cards.each { |card| expect(current_subject).to receive(:puts).with("- #{card.number}, #{card}") }
+      fake_cards.each { |card| expect(current_subject).to receive(:puts).with("- #{card.number}, #{card.type}") }
       current_subject.show_cards(account_with_cards)
     end
 

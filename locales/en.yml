@@ -62,15 +62,9 @@ en:
   correct_card_message: 'Choose correct card'
   incorrect_number_message: 'Please, input correct number of card'
   no_card_message: "There is no card with number %{number}\n"
-  success_send_message: |+
-    Money %{amount}$ was put on %{number}. 
-    Balance: %{balance}. Tax: %{tax}$\n
-  success_withdraw_message: |+
-    Money %{amount} withdrawed from %{number}$. 
-    Money left: %{balance}$. Tax: %{tax}$
-  success_put_message: |+
-    "Money %{amount} was put on %{number}. 
-    Balance: %{balance}. Tax: %{tax}
+  success_send_message: "Money %{amount}$ was put on %{number}. Balance: %{balance}. Tax: %{tax}$\n"
+  success_withdraw_message: "Money %{amount} withdrawed from %{number}$. Money left: %{balance}$. Tax: %{tax}$\n"
+  success_put_message: "Money %{amount} was put on %{number}. Balance: %{balance}. Tax: %{tax}\n"
   age_limitation_message: 'Your Age must be greeter then 23 and lower then 90'
   first_account_message: "There is no active accounts, do you want to be the first?[y/n]\n"
   wrong_command_message: "Wrong command. Try again!\n"

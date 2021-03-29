@@ -1,5 +1,5 @@
 class BaseCard
-  attr_accessor :balance
+  attr_accessor :balance, :type
 
   private
 

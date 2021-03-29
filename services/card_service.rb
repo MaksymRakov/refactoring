@@ -20,7 +20,7 @@ class CardService
 
     def show_cards(current_account)
       if current_account.card.any?
-        current_account.card.each { |card| puts "- #{card.number}, #{card}" }
+        current_account.card.each { |card| puts "- #{card.number}, #{card.type}" }
       else
         no_cards_message
       end
