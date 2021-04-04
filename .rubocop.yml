@@ -29,7 +29,10 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
 
 MultipleMemoizedHelpers:
-  Max: 14
+  Max: 15
+
+RSpec/AnyInstance:
+  Enabled: false
 
 Documentation:
   Enabled: false

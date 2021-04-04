@@ -1,56 +1,51 @@
 class MainMenuService
-  extend InputHelper
-  extend OutputHelper
-  extend Uploader
+  include InputHelper
+  include OutputHelper
+  include Uploader
+  extend Forwardable
 
-  class << self
-    def main_menu(accounts, current_account)
-      loop do
-        command = ask_action(current_account.name).to_sym
-        COMMANDS.key?(command) ? send(COMMANDS[command], accounts, current_account) : wrong_command_message
-      end
+  def_delegators :@card_service, :show_cards, :create_card, :destroy_card
+
+  def initialize(accounts, current_account)
+    @accounts = accounts
+    @current_account = current_account
+    @card_service = CardService.new(@accounts, @current_account)
+  end
+
+  def main_menu
+    loop do
+      command = ask_action(@current_account.name).to_sym
+      COMMANDS.key?(command) ? send(COMMANDS[command]) : wrong_command_message
     end
+  end
 
-    private
+  private
 
-    def show_cards(_accounts, current_account)
-      CardService.show_cards(current_account)
-    end
+  def put_money
+    PutService.new(@current_account, @accounts).put_money
+  end
 
-    def create_card(accounts, current_account)
-      CardService.create_card(accounts, current_account)
-    end
+  def withdraw_money
+    WithdrawService.new(@current_account, @accounts).withdraw_money
+  end
 
-    def destroy_card(accounts, current_account)
-      CardService.destroy_card(accounts, current_account)
-    end
+  def send_money
+    SendService.new(@current_account, @accounts).send_money
+  end
 
-    def put_money(accounts, current_account)
-      PutService.put_money(current_account, accounts)
-    end
+  def delete_account
+    destroy_account(@accounts, @current_account) && exit
+  end
 
-    def withdraw_money(accounts, current_account)
-      WithdrawService.withdraw_money(current_account, accounts)
-    end
+  def programm_exit
+    exit
+  end
 
-    def send_money(accounts, current_account)
-      SendService.new(current_account, accounts).send_money
-    end
+  def destroy_account
+    confirm_destroy_account = ask_destroy_account
+    return unless confirm_destroy_account == I18n.t(:agree)
 
-    def delete_account(accounts, current_account)
-      destroy_account(accounts, current_account) && exit
-    end
-
-    def programm_exit
-      exit
-    end
-
-    def destroy_account(accounts, current_account)
-      confirm_destroy_account = ask_destroy_account
-      return unless confirm_destroy_account == I18n.t(:agree)
-
-      new_accounts = accounts.reject { |account| account.login == current_account.login }
-      save_data(new_accounts)
-    end
+    new_accounts = @accounts.reject { |account| account.login == @current_account.login }
+    save_data(new_accounts)
   end
 end

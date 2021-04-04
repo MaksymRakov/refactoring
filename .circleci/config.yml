@@ -30,8 +30,8 @@ commands:
       - run:
           name: fasterer
           command: bundle exec fasterer
-  run_linters:
-    description: start run_linters
+  run_rubocop:
+    description: start run_rubocop
     steps:
       - run:
           name: rubocop
@@ -48,16 +48,12 @@ commands:
                                 $TEST_FILES
 
 jobs:
-  run_fasterer:
-    executor: default
-    steps:
-      - defaults
-      - run_fasterer
   lintering:
     executor: default
     steps:
       - defaults
-      - run_linters
+      - run_rubocop
+      - run_fasterer
   run_specs:
     executor: default
     steps:

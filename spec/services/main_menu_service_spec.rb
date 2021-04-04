@@ -1,5 +1,5 @@
 RSpec.describe MainMenuService do
-  subject(:current_subject) { described_class }
+  subject(:current_subject) { described_class.new(accounts, current_account) }
 
   let(:card_one) { CARDS[:usual] }
   let(:card_two) { CARDS[:virtual] }
@@ -34,10 +34,10 @@ RSpec.describe MainMenuService do
         allow(current_subject).to receive(:show_cards)
         allow(current_subject).to receive(:exit)
         allow(current_subject).to receive_message_chain(:gets, :chomp).and_return('SC', 'exit')
-        expect { current_subject.main_menu(accounts, current_account) }.to output(/Welcome, #{name}/).to_stdout
+        expect { current_subject.main_menu }.to output(/Welcome, #{name}/).to_stdout
         MAIN_OPERATIONS_TEXTS.each do |text|
           allow(current_subject).to receive_message_chain(:gets, :chomp).and_return('SC', 'exit')
-          expect { current_subject.main_menu(accounts, current_account) }.to output(text).to_stdout
+          expect { current_subject.main_menu }.to output(text).to_stdout
         end
       end
     end
@@ -52,14 +52,14 @@ RSpec.describe MainMenuService do
           allow(current_subject).to receive(exit)
           allow(current_subject).to receive_message_chain(:gets, :chomp).and_return(command, 'exit')
           expect(current_subject).to receive(method_name)
-          current_subject.main_menu(accounts, current_account)
+          current_subject.main_menu
         end
       end
 
       it 'outputs incorrect message on undefined command' do
         allow(current_subject).to receive(:programm_exit)
         allow(current_subject).to receive_message_chain(:gets, :chomp).and_return(undefined_command, 'exit')
-        expect { current_subject.main_menu(accounts, current_account) }.to output(/#{ERROR_PHRASES[:wrong_command]}/)
+        expect { current_subject.main_menu }.to output(/#{ERROR_PHRASES[:wrong_command]}/)
           .to_stdout
       end
     end
@@ -82,7 +82,7 @@ RSpec.describe MainMenuService do
 
     it 'with correct outout' do
       expect(current_subject).to receive_message_chain(:gets, :chomp)
-      expect { current_subject.destroy_account(accounts, fake_account2) }.to output(COMMON_PHRASES[:destroy_account])
+      expect { current_subject.destroy_account }.to output(COMMON_PHRASES[:destroy_account])
         .to_stdout
     end
 

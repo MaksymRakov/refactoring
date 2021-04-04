@@ -43,7 +43,12 @@ class Account
 
       no_account_message
     end
-    MainMenuService.main_menu(accounts, @current_account)
+    main_menu_service
+    @main_menu_service.main_menu
+  end
+
+  def main_menu_service
+    @main_menu_service ||= MainMenuService.new(accounts, @current_account)
   end
 
   def create_the_first_account
@@ -90,7 +95,8 @@ class Account
     new_accounts = accounts << self
     @current_account = self
     save_data(new_accounts)
-    MainMenuService.main_menu(accounts, @current_account)
+    main_menu_service
+    @main_menu_service.main_menu
   end
 
   def check_account_credentials(login, password)

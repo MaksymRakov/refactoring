@@ -1,9 +1,18 @@
 RSpec.describe Account do
+  let(:current_subject) { described_class.new }
+  let(:card_one) { CARDS[:usual] }
+  let(:card_two) { CARDS[:virtual] }
+  let(:fake_cards) { [card_one, card_two] }
+  let(:accounts) { [current_subject] }
+  let(:main_menu_service) { MainMenuService.new(accounts, current_subject) }
+
   before do
     stub_const('Uploader::FILE_PATH', OVERRIDABLE_FILENAME)
+    current_subject.instance_variable_set(:@card, fake_cards)
+    allow(main_menu_service).to receive(:loop).and_yield
+    allow(main_menu_service).to receive(:main_menu)
+    allow(current_subject).to receive(:loop).and_yield
   end
-
-  let(:current_subject) { described_class.new }
 
   describe '#console' do
     context 'when correct method calling' do
@@ -44,19 +53,20 @@ RSpec.describe Account do
     let(:success_password_input) { 'Denis1993' }
     let(:success_inputs) { [success_name_input, success_age_input, success_login_input, success_password_input] }
 
-    context 'with success result' do
-      before do
-        allow(current_subject).to receive_message_chain(:gets, :chomp).and_return(*success_inputs)
-        # allow(current_subject).to receive(:main_menu)
-        allow(current_subject).to receive(:accounts).and_return([])
-        # allow(current_subject).to receive(:loop).and_yield
-      end
+    before do
+      current_subject.instance_variable_set(:@main_menu, main_menu_service)
+      allow(current_subject).to receive_message_chain(:gets, :chomp).and_return(*success_inputs)
+      allow_any_instance_of(MainMenuService).to receive(:main_menu)
+      allow(current_subject).to receive(:accounts).and_return([])
+    end
 
+    context 'with success result' do
       after do
         File.delete(OVERRIDABLE_FILENAME) if File.exist?(OVERRIDABLE_FILENAME)
       end
 
       it 'with correct outout' do
+        allow(current_subject).to receive(:main_menu_service)
         allow(File).to receive(:open)
         allow(current_subject).to receive(:add_account_to_data)
         ASK_PHRASES.each_value { |phrase| expect(current_subject).to receive(:puts).with(phrase) }
@@ -67,8 +77,6 @@ RSpec.describe Account do
       end
 
       it 'write to file Account instance' do
-        # current_subject.instance_variable_set(:@file_path, OVERRIDABLE_FILENAME)
-        allow(MainMenuService).to receive(:main_menu)
         current_subject.create
         expect(File.exist?(OVERRIDABLE_FILENAME)).to be true
         accounts = YAML.load_file(OVERRIDABLE_FILENAME)
@@ -83,8 +91,6 @@ RSpec.describe Account do
         all_inputs = current_inputs + success_inputs
         allow(File).to receive(:open)
         allow(current_subject).to receive_message_chain(:gets, :chomp).and_return(*all_inputs)
-        # allow(current_subject).to receive(:main_menu)
-        allow(MainMenuService).to receive(:main_menu)
         allow(current_subject).to receive(:accounts).and_return([])
       end
 
@@ -195,7 +201,7 @@ RSpec.describe Account do
       before do
         account.instance_variable_set(:@login, login)
         account.instance_variable_set(:@password, password)
-        allow(MainMenuService).to receive(:main_menu)
+        allow_any_instance_of(MainMenuService).to receive(:main_menu)
         allow(current_subject).to receive_message_chain(:gets, :chomp).and_return(*all_inputs)
         allow(current_subject).to receive(:accounts) { [account] }
       end
@@ -204,7 +210,6 @@ RSpec.describe Account do
         let(:all_inputs) { [login, password] }
 
         it do
-          expect(MainMenuService).to receive(:main_menu)
           [ASK_PHRASES[:login], ASK_PHRASES[:password]].each do |phrase|
             expect(current_subject).to receive(:puts).with(phrase)
           end
@@ -216,7 +221,6 @@ RSpec.describe Account do
         let(:all_inputs) { [login, password] }
 
         it do
-          expect(MainMenuService).to receive(:main_menu)
           expect { current_subject.load }.not_to output(/#{ERROR_PHRASES[:user_not_exists]}/).to_stdout
         end
       end
@@ -225,7 +229,6 @@ RSpec.describe Account do
         let(:all_inputs) { ['test', 'test', login, password] }
 
         it do
-          expect(MainMenuService).to receive(:main_menu)
           expect { current_subject.load }.to output(/#{ERROR_PHRASES[:user_not_exists]}/).to_stdout
         end
       end

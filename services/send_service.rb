@@ -1,13 +1,4 @@
-class SendService
-  include InputHelper
-  include OutputHelper
-  include Uploader
-
-  def initialize(current_account, accounts)
-    @current_account = current_account
-    @accounts = accounts
-  end
-
+class SendService < BaseService
   def send_money
     return unless cards_get
 
@@ -48,11 +39,10 @@ class SendService
   end
 
   def check_balances
-    if @sender_balance.negative?
-      no_money_message
-    elsif @recipient_card.put_tax(@amount) >= @amount
-      no_money_sender_card_message
-    end
+    return no_money_message if @sender_balance.negative?
+
+    return no_money_sender_card_message if @recipient_card.put_tax(@amount) >= @amount
+
     true
   end
 
@@ -60,7 +50,6 @@ class SendService
     return true if @amount.positive?
 
     wrong_number_message
-    false
   end
 
   def sender_card_get

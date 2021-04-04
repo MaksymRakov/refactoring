@@ -1,5 +1,6 @@
-require 'yaml'
+require 'forwardable'
 require 'i18n'
+require 'yaml'
 
 require_relative '../config/config_i18n'
 require_relative '../helpers/validate'
