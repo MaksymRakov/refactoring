@@ -31,7 +31,7 @@ commands:
           name: fasterer
           command: bundle exec fasterer
   run_rubocop:
-    description: start run_rubocop
+    description: start run srubocop
     steps:
       - run:
           name: rubocop
@@ -46,14 +46,17 @@ commands:
               bundle exec rspec --format progress \
                                 --out /tmp/test-results/rspec.xml \
                                 $TEST_FILES
-
 jobs:
-  lintering:
+  run_fasterer:
+    executor: default
+    steps:
+      - defaults
+      - run_fasterer
+  run_rubocop:
     executor: default
     steps:
       - defaults
       - run_rubocop
-      - run_fasterer
   run_specs:
     executor: default
     steps:
@@ -65,5 +68,5 @@ workflows:
   build:
     jobs:
       - run_fasterer
-      - lintering
+      - run_rubocop
       - run_specs
