@@ -15,8 +15,8 @@ class Account
     answer = ask_greeting
 
     case answer
-    when 'create' then create
-    when 'load' then load
+    when CREATE_COMMAND then create
+    when LOAD_COMMAND then load
     else exit
     end
   end
@@ -72,7 +72,7 @@ class Account
 
   def age_input
     @age = ask_age.to_i
-    @errors.push(age_limitation_message) unless @age.is_a?(Integer) && @age.between?(23, 90)
+    @errors.push(age_limitation_message) unless @age.is_a?(Integer) && @age.between?(MIN_AGE, MAX_AGE)
   end
 
   def password_input

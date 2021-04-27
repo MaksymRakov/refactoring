@@ -17,7 +17,7 @@ class BaseService
     cards_list_message(@current_account.card)
     return unless (answer = card_position_get)
 
-    current_card = @current_account.card[answer.to_i - 1]
+    current_card = @current_account.card[answer.to_i - INITIAL_INDEX]
     performing_operation(current_card)
   end
 
@@ -25,7 +25,7 @@ class BaseService
     answer = gets.chomp
     return false if answer == I18n.t(:exit)
 
-    unless answer.to_i.between?(1, @current_account.card.length)
+    unless answer.to_i.between?(INITIAL_INDEX, @current_account.card.length)
       wrong_number_message
       return false
     end

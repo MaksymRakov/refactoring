@@ -137,7 +137,7 @@ RSpec.describe CardService do
           expect(file_accounts.first.card.first).to be_instance_of(Object.const_get("#{card_type.capitalize}Card"))
           expect(file_accounts.first.card.first.balance)
             .to eq(Object.const_get("#{card_type.capitalize}Card").new.balance)
-          expect(file_accounts.first.card.first.number.length).to be 16
+          expect(file_accounts.first.card.first.number.length).to be CARD_NUMBER_LENGTH
         end
       end
     end

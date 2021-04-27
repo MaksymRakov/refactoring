@@ -1,9 +1,8 @@
 class BaseCard
   attr_accessor :balance
-  attr_reader :type, :number
 
-  def initialize
-    @number = generate_card_number
+  def number
+    @number ||= generate_card_number
   end
 
   def withdraw_tax(amount)
@@ -16,6 +15,10 @@ class BaseCard
 
   def sender_tax(amount)
     tax(amount, sender_percent, sender_fixed)
+  end
+
+  def type
+    self.class.to_s.downcase[0...-4]
   end
 
   private
@@ -45,10 +48,10 @@ class BaseCard
   end
 
   def generate_card_number
-    Array.new(16) { rand(9) }.join
+    Array.new(CARD_NUMBER_LENGTH) { rand(LARGEST_DIGIT_OF_NUMBER) }.join
   end
 
   def tax(amount, percent, fixed)
-    amount * percent / 100 + fixed
+    amount * percent / FULL_PERCENTS + fixed
   end
 end

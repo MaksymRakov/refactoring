@@ -1,7 +1,7 @@
 class UsualCard < BaseCard
+  DEFAULT_BALANCE = 50.0
+
   def initialize
-    super
-    @balance = DEFAULT_BALANCE_USUAL
-    @type = CARD_TYPES[0]
+    @balance = self.class::DEFAULT_BALANCE
   end
 end

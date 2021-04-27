@@ -24,7 +24,7 @@ RSpec.describe SendService do
 
     context 'when account with cards' do
       let(:invalid_card_position) { 7 }
-      let(:wrong_number) { '1' * 16 }
+      let(:wrong_number) { '1' * CARD_NUMBER_LENGTH }
 
       before do
         current_account.instance_variable_set(:@card, fake_cards)

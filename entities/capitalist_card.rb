@@ -1,7 +1,7 @@
 class CapitalistCard < BaseCard
+  DEFAULT_BALANCE = 100.0
+
   def initialize
-    super
-    @balance = DEFAULT_BALANCE_CAPITALIST
-    @type = CARD_TYPES[1]
+    @balance = self.class::DEFAULT_BALANCE
   end
 end

@@ -36,7 +36,7 @@ class CardService
 
       return unless card_index
 
-      if card_index.to_i.between?(1, @current_account.card.length)
+      if card_index.to_i.between?(INITIAL_INDEX, @current_account.card.length)
         delete_card(card_index)
         break
       end
@@ -55,9 +55,9 @@ class CardService
   private
 
   def delete_card(card_number)
-    return unless ask_confirm_card_delete(@current_account.card[card_number.to_i - 1]) == I18n.t(:agree)
+    return unless ask_confirm_card_delete(@current_account.card[card_number.to_i - INITIAL_INDEX]) == I18n.t(:agree)
 
-    @current_account.card.delete_at(card_number.to_i - 1)
+    @current_account.card.delete_at(card_number.to_i - INITIAL_INDEX)
     save_data(@accounts)
   end
 end

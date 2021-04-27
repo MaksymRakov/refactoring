@@ -28,6 +28,10 @@ Metrics/BlockLength:
     - 'Gemfile'
     - 'spec/**/*.rb'
 
+RSpec/MissingSuper:
+  Exclude:
+    - 'entities/*_card.rb'
+
 MultipleMemoizedHelpers:
   Max: 15
 

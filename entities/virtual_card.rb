@@ -1,7 +1,7 @@
 class VirtualCard < BaseCard
+  DEFAULT_BALANCE = 150.0
+
   def initialize
-    super
-    @balance = DEFAULT_BALANCE_VIRTUAL
-    @type = CARD_TYPES[2]
+    @balance = self.class::DEFAULT_BALANCE
   end
 end

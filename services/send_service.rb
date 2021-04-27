@@ -58,18 +58,18 @@ class SendService < BaseService
 
     answer = ask_sender_card(@current_account.card)
     exit if answer == I18n.t(:exit)
-    return @current_account.card[answer.to_i - 1] if check_card_position(answer)
+    return @current_account.card[answer.to_i - INITIAL_INDEX] if check_card_position(answer)
 
     correct_card_message
   end
 
   def check_card_position(answer)
-    answer.to_i.between?(0, @current_account.card.length)
+    answer.to_i.between?(INITIAL_INDEX, @current_account.card.length + INITIAL_INDEX)
   end
 
   def recipient_card_get
     number = ask_recipient_card
-    return incorrect_number_message unless number.length == 16
+    return incorrect_number_message unless number.length == CARD_NUMBER_LENGTH
 
     cards = @accounts.map(&:card).flatten
     return cards.detect { |card| card.number == number } if cards.select { |card| card.number == number }.any?
