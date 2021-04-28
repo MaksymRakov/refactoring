@@ -54,14 +54,17 @@ RSpec.describe SendService do
     end
   end
 
-  describe '#check_amount' do
+  context 'when wrong amount' do
     let(:wrong_amount) { '-2' }
 
-    it 'calls wrong_number_message if amount less then zero' do
+    before do
       allow(current_subject).to receive(:loop).and_yield
       allow(current_subject).to receive(:cards_get).and_return(true)
       allow(current_subject).to receive_message_chain(:gets, :chomp).and_return(wrong_amount)
       allow(current_subject).to receive(:ask_amount_send).and_return(wrong_amount)
+    end
+
+    it 'calls wrong_number_message if amount less then zero' do
       expect(current_subject).to receive(:wrong_number_message)
 
       current_subject.send_money

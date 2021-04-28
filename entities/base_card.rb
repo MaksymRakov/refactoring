@@ -1,6 +1,10 @@
 class BaseCard
   attr_accessor :balance
 
+  def initialize
+    @balance = self.class::DEFAULT_BALANCE
+  end
+
   def number
     @number ||= generate_card_number
   end
