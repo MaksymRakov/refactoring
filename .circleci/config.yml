@@ -1,0 +1,72 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2 
+
+executors:
+  default:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/ruby:2.7.2
+
+caches:
+  - &bundle_cache_v1 v1_-repo-{{ checksum "Gemfile.lock" }}
+  - &bundle_cache v2-repo-
+
+commands:
+  defaults:
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - *bundle_cache_v1
+      - run: bundle install --path vendor/bundle
+      - save_cache:
+          key: *bundle_cache
+          paths:
+            - vendor/bundle
+  run_fasterer:
+    description: start run_fasterer
+    steps:
+      - run:
+          name: fasterer
+          command: bundle exec fasterer
+  run_rubocop:
+    description: start run srubocop
+    steps:
+      - run:
+          name: rubocop
+          command: bundle exec rubocop
+  run_specs:
+    steps:
+      - run:
+          name: run run_specs
+          command: |
+            mkdir /tmp/test-results
+              TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+              bundle exec rspec --format progress \
+                                --out /tmp/test-results/rspec.xml \
+                                $TEST_FILES
+jobs:
+  run_fasterer:
+    executor: default
+    steps:
+      - defaults
+      - run_fasterer
+  run_rubocop:
+    executor: default
+    steps:
+      - defaults
+      - run_rubocop
+  run_specs:
+    executor: default
+    steps:
+      - defaults
+      - run_specs
+
+workflows:
+  version: 2.1
+  build:
+    jobs:
+      - run_fasterer
+      - run_rubocop
+      - run_specs

@@ -1,0 +1,78 @@
+en:
+  agree: 'y'
+  ampty_name: 'Your name must not be empty and starts with first upcase letter'
+  action_put: 'putting'
+  action_send: 'sending'
+  action_withdraw: 'withdrawing'
+  create_card: 'CC'
+  delete_account: 'DA'
+  destroy_card: 'DC'
+  put_money: 'PM'
+  send_money: 'SM'
+  show_cards: 'SC'
+  withdraw_money: 'WM'
+  exit: 'exit'
+  ask_destroy_account: "Are you sure you want to destroy account?[y/n]\n"
+  ask_age: 'Enter your age'
+  ask_name: 'Enter your name'
+  ask_login: 'Enter your login'
+  ask_password: 'Enter your password'
+  ask_confirm_card_delete: "Are you sure you want to delete %{card_number}?[y/n]"
+  ask_recipient_card: 'Enter the recipient card:'
+  greeting_message: |+
+    Hello, we are RubyG bank!
+    - If you want to create account - press `create`
+    - If you want to load account - press `load`
+    - If you want to exit - press `exit`
+  welcome: "\nWelcome, %{name}"
+  greeting_main_menu_message: |+
+    Welcome, %{name}
+    If you want to:
+    - show all cards - press SC
+    - create card - press CC
+    - destroy card - press DC
+    - put money on card - press PM
+    - withdraw money on card - press WM
+    - send money to another card  - press SM
+    - destroy account - press `DA`
+    - exit from account - press `exit`
+  create_card_message: |+
+    You could create one of 3 card types
+    - Usual card. 2% tax on card INCOME. 20$ tax on SENDING money from this card. 5% tax on WITHDRAWING money.
+    For creation this card - press `usual`
+    - Capitalist card. 10$ tax on card INCOME. 10% tax on SENDING money from this card. 
+    4$ tax on WITHDRAWING money. For creation this card - press `capitalist`
+    - Virtual card. 1$ tax on card INCOME. 1$ tax on SENDING money from this card. 
+    12% tax on WITHDRAWING money. For creation this card - press `virtual`
+    - For exit - press `exit`
+  press: 'press'
+  press_exit: "press `exit` to exit\n"
+  proposal_to_delete: 'If you want to delete:'
+  no_account_message: 'There is no account with given credentials'
+  no_cards_message: "There is no active cards!\n"
+  wrong_number_message: "You entered wrong number!\n"
+  withdraw_amount_message: 'Input the amount of money you want to withdraw'
+  put_amount_message: 'Input the amount of money you want to put on your card'
+  send_amount_message: 'Input the amount of money you want to withdraw'
+  no_money_message: "You don't have enough money on card for such operation"
+  no_money_sender_card_message: 'There is no enough money on sender card'
+  incorrect_amount_message: 'You must input correct amount of money'
+  invitation_for: "Choose the card for %{action_name}:"
+  big_tax_message: 'Your tax is higher than input amount'
+  correct_card_message: 'Choose correct card'
+  incorrect_number_message: 'Please, input correct number of card'
+  no_card_message: "There is no card with number %{number}\n"
+  success_send_message: "Money %{amount}$ was put on %{number}. Balance: %{balance}. Tax: %{tax}$\n"
+  success_withdraw_message: "Money %{amount} withdrawed from %{number}$. Money left: %{balance}$. Tax: %{tax}$\n"
+  success_put_message: "Money %{amount} was put on %{number}. Balance: %{balance}. Tax: %{tax}\n"
+  age_limitation_message: 'Your Age must be greeter then 23 and lower then 90'
+  first_account_message: "There is no active accounts, do you want to be the first?[y/n]\n"
+  wrong_command_message: "Wrong command. Try again!\n"
+  wrong_card_type: "Wrong card type. Try again!\n"
+  password_present: 'Password must present'
+  min_password_lemngth: 'Password must be longer then 6 symbols'
+  max_password_lemngth: 'Password must be shorter then 30 symbols'
+  login_present: 'Login must present'
+  min_login_lemngth: 'Login must be longer then 4 symbols'
+  max_login_lemngth: 'Login must be shorter then 20 symbols'
+  account_exist: 'Such account is already exists'

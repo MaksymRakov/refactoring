@@ -1,16 +1,24 @@
 require: rubocop-rspec
 
+AllCops:
+  NewCops: enable
+  Exclude:
+    - vendor/bundle/**/*
+
 RSpec/MessageChain:
   Enabled: false
 
+RSpec/SubjectStub:
+  Enabled: false
+
 RSpec/NestedGroups:
-  Max: 5
+  Max: 6
 
 RSpec/MultipleExpectations:
   Max: 5
 
 RSpec/ExampleLength:
-  Max: 10
+  Max: 14
 
 RSpec/MessageSpies:
   Enabled: false
@@ -20,8 +28,15 @@ Metrics/BlockLength:
     - 'Gemfile'
     - 'spec/**/*.rb'
 
-Metrics/LineLength:
-  Max: 120
+RSpec/MissingSuper:
+  Exclude:
+    - 'entities/*_card.rb'
+
+MultipleMemoizedHelpers:
+  Max: 15
+
+RSpec/AnyInstance:
+  Enabled: false
 
 Documentation:
   Enabled: false
